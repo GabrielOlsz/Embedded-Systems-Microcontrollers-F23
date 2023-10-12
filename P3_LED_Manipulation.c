@@ -38,7 +38,7 @@ void main() {
 
 
  
-
+           //ygdqwyeugdgiquWD
  for(;;){
   //Objective 2
      //GPIOE_IDR = number;

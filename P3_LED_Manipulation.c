@@ -46,31 +46,6 @@ void main() {
   //Objective 2
   GPIOE_ODR = num1;
 //*****************************************************************************
-  
-//     GPIOE_IDR = number;
-//       GPIOE_ODR.B8  = 1;   //D0
-//       GPIOE_ODR.B10 = 1;   //D1
-//       GPIOE_ODR.B12 = 0;   //D2
-//       GPIOE_ODR.B14 = 0;   //D3
-//
-//       GPIOE_ODR.B9  = 0;   //OE
-//       GPIOE_ODR.B11 = 0;   //ST
-//       GPIOE_ODR.B13 = 1;   //LT
-//       GPIOE_ODR.B15 = 1;   //BL
-//
-//       delay_ms(10);
-
-//       GPIOE_ODR.B8  = 1;   //D0
-//       GPIOE_ODR.B10 = 0;   //D1
-//       GPIOE_ODR.B12 = 1;   //D2
-//       GPIOE_ODR.B14 = 0;   //D3
-//
-//       GPIOE_ODR.B9  = 0;   //OE
-//       GPIOE_ODR.B11 = 1;   //ST
-//       GPIOE_ODR.B13 = 1;   //LT
-//       GPIOE_ODR.B15 = 1;   //BL
-//        delay_ms(10);
-
       
  //****************************************************************************
 //Objective 3 (Not Working Yet Probably - Have not tested)

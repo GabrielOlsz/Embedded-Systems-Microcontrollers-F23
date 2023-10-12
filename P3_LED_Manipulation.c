@@ -22,14 +22,16 @@
 //For 8 = 0x00000110
 //For 9 = 0x10000110
 
-unsigned long int number = 7;
-d0 = number & 0x0001
+//int num1 = 0xA500;     //Variable for the MET1155 display
+int num1 = 0b1010010100000000;     //Variable for the MET1155 display
+
 unsigned long int pa0state = 0;
 
 void main() {
 
   RCC_APB2ENR |= 1 << 2;  // Enable GPIOA clock - necessary to use GPIOA
   RCC_APB2ENR |= 1 << 6;  // Enable GPIOE clock - necessary to use GPIOE
+  RCC_APB2ENR |= 1 << 5;  // Enable GPIOE clock - necessary to use GPIOE
 
   GPIOE_CRH = 0x33333333; //SETS GPIOE HIGH
 
@@ -40,44 +42,60 @@ void main() {
  
 
  for(;;){
+ //****************************************************************************
   //Objective 2
-     //GPIOE_IDR = number;
-       GPIOE_ODR.B8  = 1;   //D0
-       GPIOE_ODR.B10 = 1;   //D1
-       GPIOE_ODR.B12 = 0;   //D2
-       GPIOE_ODR.B14 = 0;   //D3
-       
-       GPIOE_ODR.B9  = 0;   //OE
-       GPIOE_ODR.B11 = 0;   //ST
-       GPIOE_ODR.B13 = 1;   //LT
-       GPIOE_ODR.B15 = 1;   //BL
-       
-       delay_ms(10);
-     //GPIOE_IDR = number;
-       GPIOE_ODR.B8  = 1;   //D0
-       GPIOE_ODR.B10 = 0;   //D1
-       GPIOE_ODR.B12 = 1;   //D2
-       GPIOE_ODR.B14 = 0;   //D3
-
-       GPIOE_ODR.B9  = 0;   //OE
-       GPIOE_ODR.B11 = 1;   //ST
-       GPIOE_ODR.B13 = 1;   //LT
-       GPIOE_ODR.B15 = 1;   //BL
-        delay_ms(10);
-        
-  //Objective 3
-//     if(GPIOA_IDR.B0 == 1 & pa0state == 0){      // Wait until PB0 is pressed
-//                          pa0state = 1;
-//          }
+  GPIOE_ODR = num1;
+//*****************************************************************************
+  
+//     GPIOE_IDR = number;
+//       GPIOE_ODR.B8  = 1;   //D0
+//       GPIOE_ODR.B10 = 1;   //D1
+//       GPIOE_ODR.B12 = 0;   //D2
+//       GPIOE_ODR.B14 = 0;   //D3
 //
-//     if(GPIOA_IDR.B0 == 0 & pa0state == 1){// Falling edge, previously pressed, currently not pressed
-//                pa0state = 0;
-//                GPIOE_ODR = 0b1000100000000000;
+//       GPIOE_ODR.B9  = 0;   //OE
+//       GPIOE_ODR.B11 = 0;   //ST
+//       GPIOE_ODR.B13 = 1;   //LT
+//       GPIOE_ODR.B15 = 1;   //BL
 //
-//                }
-                
+//       delay_ms(10);
+
+//       GPIOE_ODR.B8  = 1;   //D0
+//       GPIOE_ODR.B10 = 0;   //D1
+//       GPIOE_ODR.B12 = 1;   //D2
+//       GPIOE_ODR.B14 = 0;   //D3
+//
+//       GPIOE_ODR.B9  = 0;   //OE
+//       GPIOE_ODR.B11 = 1;   //ST
+//       GPIOE_ODR.B13 = 1;   //LT
+//       GPIOE_ODR.B15 = 1;   //BL
+//        delay_ms(10);
+
+      
+ //****************************************************************************
+//Objective 3 (Not Working Yet Probably - Have not tested)
+     if(GPIOA_IDR.B0 == 1 & pa0state == 0){      // Wait until PB0 is pressed
+                          pa0state = 1;
+          }
+
+     if(GPIOA_IDR.B0 == 0 & pa0state == 1){// Falling edge, previously pressed, currently not pressed
+                pa0state = 0;
+                GPIOE_ODR.B11 = 1;
+                }
+ //****************************************************************************
 
 
-           }
+ //****************************************************************************
+//Objective 4  (Unfinished)
+     if(GPIOD_IDR.B0 == 1 & pa0state == 0){      // Wait until PB0 is pressed
+                          pa0state = 1;
+          }
 
+     if(GPIOD_IDR.B0 == 0 & pa0state == 1){// Falling edge, previously pressed, currently not pressed
+                pa0state = 0;
+                GPIOE_ODR.B11 = 1;
+                }
+ //****************************************************************************
+
+    }
 }

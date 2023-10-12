@@ -22,8 +22,8 @@
 //For 8 = 0x00000110
 //For 9 = 0x10000110
 
-//int num1 = 0xA500;     //Variable for the MET1155 display
-int num1 = 0b1010010100000000;     //Variable for the MET1155 display
+//int displayNumber = 0xA500;     //Variable for the MET1155 display
+int displayNumber = 0b1010010100000000;     //Variable for the MET1155 display
 
 unsigned long int pa0state = 0;
 
@@ -32,11 +32,14 @@ void main() {
   RCC_APB2ENR |= 1 << 2;  // Enable GPIOA clock - necessary to use GPIOA
   RCC_APB2ENR |= 1 << 6;  // Enable GPIOE clock - necessary to use GPIOE
   RCC_APB2ENR |= 1 << 5;  // Enable GPIOE clock - necessary to use GPIOE
+  
+  GPIOE_CRH = 0x33333333; //SETS GPIOE Output
+  GPIOE_CRH = 0x33333333; //SETS GPIOE Output
+  GPIOA_CRL = 0x44444444; //SETS GPIOA LOW as Input
+  GPIOA_CRH = 0x44444444; //SETS GPIOA HIGH as Input
+  GPIOD_CRL = 0x44444444; //Input
+  GPIOD_CRH = 0x33333333; //Output
 
-  GPIOE_CRH = 0x33333333; //SETS GPIOE HIGH
-
-  GPIOA_CRL = 0x44444444; //SETS GPIOA LOW as input
-  GPIOA_CRH = 0x33333333; //SETS GPIOA HIGH as output
 
 
  
@@ -44,32 +47,33 @@ void main() {
  for(;;){
  //****************************************************************************
   //Objective 2
-  GPIOE_ODR = num1;
+  GPIOE_ODR = displayNumber;
 //*****************************************************************************
       
  //****************************************************************************
 //Objective 3 (Not Working Yet Probably - Have not tested)
      if(GPIOA_IDR.B0 == 1 & pa0state == 0){      // Wait until PB0 is pressed
                           pa0state = 1;
+                          GPIOE_ODR.B11 = 1;
           }
 
      if(GPIOA_IDR.B0 == 0 & pa0state == 1){// Falling edge, previously pressed, currently not pressed
                 pa0state = 0;
-                GPIOE_ODR.B11 = 1;
+
                 }
  //****************************************************************************
 
 
  //****************************************************************************
 //Objective 4  (Unfinished)
-     if(GPIOD_IDR.B0 == 1 & pa0state == 0){      // Wait until PB0 is pressed
-                          pa0state = 1;
-          }
-
-     if(GPIOD_IDR.B0 == 0 & pa0state == 1){// Falling edge, previously pressed, currently not pressed
-                pa0state = 0;
-                GPIOE_ODR.B11 = 1;
-                }
+//     if(GPIOD_IDR.B0 == 1 & pa0state == 0){      // Wait until PB0 is pressed
+//                          pa0state = 1;
+//          }
+//
+//     if(GPIOD_IDR.B0 == 0 & pa0state == 1){// Falling edge, previously pressed, currently not pressed
+//                pa0state = 0;
+//                GPIOE_ODR.B11 = 1;
+//                }
  //****************************************************************************
 
     }
